@@ -1,6 +1,6 @@
 # !/usr/bin/env python3
 # echo.py
-# author: Sébastien Combéfis
+# author: Sebastien Combefis and binome 2
 # version: February 15, 2016
 
 import socket

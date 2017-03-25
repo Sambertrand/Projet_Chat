@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # chat.py
-# author: Sébastien Combéfis
+# author: Sebastien Combefis
 # version: February 15, 2016
 
 import socket
@@ -9,12 +9,13 @@ import threading
 
 
 class Chat:
-    def __init__(self, host=socket.gethostname(), port=5000):
+    def __init__(self, pseudo, host=socket.gethostname(), port=5000):
+        self.__speudo = pseudo
         s = socket.socket(type=socket.SOCK_DGRAM)
         s.settimeout(0.5)
         s.bind((host, port))
         self.__s = s
-        print('Écoute sur {}:{}'.format(host, port))
+        print('Ecoute sur {}:{}'.format(host, port))
 
     def run(self):
         handlers = {
@@ -36,7 +37,7 @@ class Chat:
                 try:
                     handlers[command]() if param == '' else handlers[command](param)
                 except:
-                    print("Erreur lors de l'exécution de la commande.")
+                    print("Erreur lors de l'execution de la commande.")
             else:
                 print('Command inconnue:', command)
 
@@ -53,7 +54,7 @@ class Chat:
         if len(tokens) == 2:
             try:
                 self.__address = (socket.gethostbyaddr(tokens[0])[0], int(tokens[1]))
-                print('Connecté à {}:{}'.format(*self.__address))
+                print('Connecte a {}:{}'.format(*self.__address))
             except OSError:
                 print("Erreur lors de l'envoi du message.")
 
@@ -66,7 +67,7 @@ class Chat:
                     sent = self.__s.sendto(message[totalsent:], self.__address)
                     totalsent += sent
             except OSError:
-                print('Erreur lors de la réception du message.')
+                print('Erreur lors de la reception du message.')
 
     def _receive(self):
         while self.__running:
@@ -80,6 +81,7 @@ class Chat:
 
 
 if __name__ == '__main__':
+    pseudo = input('Votre pseudo: ')
     if len(sys.argv) == 3:
         Chat(sys.argv[1], int(sys.argv[2])).run()
     else:

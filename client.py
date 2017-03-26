@@ -81,8 +81,23 @@ class Chat:
                 pass
             except OSError:
                 return
+
     def _clients(self):
         print(*self.__address)
+
+    def _connect(self, param):
+        tokens = param.split(' ')
+        if len(tokens) == 2:
+            try:
+                self.__address = (socket.gethostbyaddr(tokens[0])[0], int(tokens[1]))
+                print('Connecte a {}:{}'.format(*self.__address))
+                # envoyer qqch au serveur, à voir avec Sam       ##M
+                # chopper l'ip?                                  ##M
+            except OSError:
+                print("Erreur lors de la connection au serveur.")
+
+    def _help(self):
+        pass
 
 
 if __name__ == '__main__':

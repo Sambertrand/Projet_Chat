@@ -22,7 +22,8 @@ class Chat:
             '/exit': self._exit,
             '/quit': self._quit,
             '/join': self._join,
-            '/send': self._send
+            '/send': self._send,
+            '/clients': self._clients
         }
         self.__running = True
         self.__address = None
@@ -42,6 +43,7 @@ class Chat:
                 print('Command inconnue:', command)
 
     def _exit(self):
+        print('Cya')
         self.__running = False
         self.__address = None
         self.__s.close()
@@ -62,7 +64,7 @@ class Chat:
     def _send(self, param):
         if self.__address is not None:
             try:
-                message = b'<' + pseudo.encode() + b'>' + param.encode()
+                message = b'<' + self.__speudo.encode() + b'>' + param.encode()
                 totalsent = 0
                 while totalsent < len(message):
                     sent = self.__s.sendto(message[totalsent:], self.__address)
@@ -79,6 +81,8 @@ class Chat:
                 pass
             except OSError:
                 return
+    def _clients(self):
+        print(*self.__address)
 
 
 if __name__ == '__main__':

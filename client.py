@@ -10,7 +10,7 @@ import threading
 
 class Chat:
     def __init__(self, pseudo, host=socket.gethostname(), port=5000):
-        self.__speudo = pseudo
+        self.__pseudo = pseudo
         s = socket.socket(type=socket.SOCK_DGRAM)
         s.settimeout(0.5)
         s.bind((host, port))
@@ -27,6 +27,7 @@ class Chat:
         }
         self.__running = True
         self.__address = None
+        self.__servadress = None
         threading.Thread(target=self._receive).start()
         while self.__running:
             line = sys.stdin.readline().rstrip() + ' '
@@ -45,14 +46,29 @@ class Chat:
     def _exit(self):
         print('Cya')
         self.__running = False
+        self.__servadress = None
         self.__address = None
         self.__s.close()
 
     def _quit(self):
-        print('Deconnecte de {}:{}'.format(*self.__address))
-        self.__address = None
+        if self.__servadress is not None:
+            try:
+                message = b'/clients' + self.__pseudo.encode()
+                totalsent = 0
+                while totalsent < len(message):
+                    sent = self.__s.sendto(message[totalsent:], self.__servadress)
+                    totalsent += sent
+                print('Deconnecte du serveur {}:{}'.format(*self.__address))
+                self.__servadress = None
+            except OSError:
+                print('Erreur lors de déconnection au seerveur.')
+
+        if self.__address is not None:
+            print('Deconnecte de {}:{}'.format(*self.__address))
+            self.__address = None
 
     def _join(self, param):
+        self._quit()
         tokens = param.split(' ')
         if len(tokens) == 2:
             try:
@@ -64,13 +80,15 @@ class Chat:
     def _send(self, param):
         if self.__address is not None:
             try:
-                message = b'<' + self.__speudo.encode() + b'>' + param.encode()
+                message = b'<' + self.__pseudo.encode() + b'>' + param.encode()
                 totalsent = 0
                 while totalsent < len(message):
                     sent = self.__s.sendto(message[totalsent:], self.__address)
                     totalsent += sent
             except OSError:
                 print('Erreur lors de la reception du message.')
+        else:
+            print('Connectez vous a un client.')
 
     def _receive(self):
         while self.__running:
@@ -83,14 +101,25 @@ class Chat:
                 return
 
     def _clients(self):
-        print(*self.__address)
+        if self.__servadress is not None:
+            try:
+                message = b'/clients' + self.__pseudo.encode()
+                totalsent = 0
+                while totalsent < len(message):
+                    sent = self.__s.sendto(message[totalsent:], self.__servadress)
+                    totalsent += sent
+            except OSError:
+                print('Erreur lors de la reception du message.')
+        else:
+            print('Connectez vous a un serveur')
 
     def _connect(self, param):
+        self._quit()
         tokens = param.split(' ')
         if len(tokens) == 2:
             try:
-                self.__address = (socket.gethostbyaddr(tokens[0])[0], int(tokens[1]))
-                print('Connecte a {}:{}'.format(*self.__address))
+                self.__servadress = (socket.gethostbyaddr(tokens[0])[0], int(tokens[1]))
+                print('Connecte au serveur {}:{}'.format(*self.__servadress))
                 # envoyer qqch au serveur, à voir avec Sam       ##M
                 # chopper l'ip?                                  ##M
             except OSError:

@@ -47,6 +47,7 @@ class Chat:
         self.__s.close()
 
     def _quit(self):
+        print('Deconnecte de {}:{}'.format(*self.__address))
         self.__address = None
 
     def _join(self, param):
@@ -61,7 +62,7 @@ class Chat:
     def _send(self, param):
         if self.__address is not None:
             try:
-                message = param.encode()
+                message = b'<' + pseudo.encode() + b'>' + param.encode()
                 totalsent = 0
                 while totalsent < len(message):
                     sent = self.__s.sendto(message[totalsent:], self.__address)
@@ -83,6 +84,6 @@ class Chat:
 if __name__ == '__main__':
     pseudo = input('Votre pseudo: ')
     if len(sys.argv) == 3:
-        Chat(sys.argv[1], int(sys.argv[2])).run()
+        Chat(pseudo, sys.argv[1], int(sys.argv[2])).run()
     else:
-        Chat().run()
+        Chat(pseudo).run()

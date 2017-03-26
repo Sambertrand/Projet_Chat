@@ -15,11 +15,11 @@
    ###client:
         (/help)
         /join en P2P avec le pseudo fournie par le pseudo serveur (reçoit un dico avec {pseudo: adresse)
-        /connect en serveur
-        /quit server
-        /quit p2p
-        listen server /list
-        demande de pseudo
+        /connect en serveur      //Done
+        /quit server             //Done
+        /quit p2p                //Done
+        listen server /clients
+        demande de pseudo        //Done
         
 
     Trouver le server --> readme

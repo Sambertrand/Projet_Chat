@@ -61,7 +61,7 @@ class Chat:
                 print('Deconnecte du serveur {}:{}'.format(*self.__address))
                 self.__servadress = None
             except OSError:
-                print('Erreur lors de déconnection au seerveur.')
+                print('Erreur lors de déconnection au serveur.')
 
         if self.__address is not None:
             print('Deconnecte de {}:{}'.format(*self.__address))

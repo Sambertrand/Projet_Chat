@@ -1,7 +1,7 @@
 #! / usr / bin / env
 #python3
 # chat.py
-# author: Sébastien Combéfis
+# author: Sebastien Combefis
 # version: February 15, 2016
 
 import socket
@@ -78,15 +78,19 @@ class Chat:
                 if command == '/clients':
                     self._send(self.__clients[pseudo], self._clients())
                 if command == '/connect':
-                    self.__clients[pseudo] = 
+                   if pseudo in self.__clients:
+                        self._send(self.__clients[pseudo], "0")
+                   else:
+                        self.__clients[pseudo] = address
+                        self._send(self.__clients[pseudo], "1")
                 if command == '/quit':
-                    pass
-                        #suprime du dico
+                    self.__clients.pop(pseudo)
             except socket.timeout:
                 pass
             except OSError:
                 return
     def _clients(self):
+        
         pass
 
 

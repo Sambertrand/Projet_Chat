@@ -1,5 +1,5 @@
-! / usr / bin / env
-python3
+#! / usr / bin / env
+#python3
 # chat.py
 # author: Sébastien Combéfis
 # version: February 15, 2016

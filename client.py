@@ -6,16 +6,19 @@
 import socket
 import sys
 import threading
+import json
 
 
 class Chat:
     def __init__(self, pseudo, host=socket.gethostname(), port=5000):
         self.__pseudo = pseudo
+        self.__avlbl = None
+        self.__updte = False
         s = socket.socket(type=socket.SOCK_DGRAM)
         s.settimeout(0.5)
         s.bind((host, port))
         self.__s = s
-        print('Ecoute sur {}:{}'.format(host, port))
+        print('Ecoute sur {}:{} en tant que {}'.format(host, port, pseudo))
 
     def run(self):
         handlers = {
@@ -112,29 +115,49 @@ class Chat:
                     totalsent += sent
             except OSError:
                 print('Erreur lors de la reception du message.')
+            while self.__update is False:
+                try:
+                    data, address = self.__s.recvfrom(1024)
+                    self.__avlbl = json.loads(data.decode())
+                    print(self.__avlbl)
+                    self.__updte = True
+                except socket.timeout:
+                    pass
+                except OSError:
+                    return
+            self.__updte = False
 
         else:
             print('Connectez vous a un serveur')
 
     def _connect(self, param):
-        self._quit()
-        tokens = param.split(' ')
-        if len(tokens) == 2:
-            try:
-                self.__servadress = (socket.gethostbyaddr(tokens[0])[0], int(tokens[1]))
-                print('Connecte au serveur {}:{}'.format(*self.__servadress))
-                # envoye le pseudo au serveur
-                message = b'/connect' + self.__pseudo.encode()
-                totalsent = 0
-                while totalsent < len(message):
-                    sent = self.__s.sendto(message[totalsent:], self.__servadress)
-                    totalsent += sent
-            except OSError:
-                print("Erreur lors de la connection au serveur.")
+        data = b'0'
+        # data is 0 if the nickname is already taken. 1 if not.
+        while data == b'0':
+            self._quit()
+            tokens = param.split(' ')
+            if len(tokens) == 2:
+                try:
+                    self.__servadress = (socket.gethostbyaddr(tokens[0])[0], int(tokens[1]))
+                    # envoye le pseudo au serveur
+                    message = b'/connect' + self.__pseudo.encode()
+                    totalsent = 0
+                    while totalsent < len(message):
+                        sent = self.__s.sendto(message[totalsent:], self.__servadress)
+                        totalsent += sent
+                    while self.__update is False:
+                        try:
+                            data, address = self.__s.recvfrom(1024)
+                            if data == b'0':
+                                self.__pseudo = input('Votre pseudo est déjà pris, veuillez entrer un nouveau: ')
+                        except socket.timeout:
+                            pass
+                except OSError:
+                    print("Erreur lors de la connection au serveur.")
+        print('Connecte au serveur {}:{}'.format(*self.__servadress))
 
     def _help(self):
         pass
-
 
 if __name__ == '__main__':
     pseudo = input('Votre pseudo: ')

@@ -73,6 +73,7 @@ class Chat:
         while self.__running:
             try:
                 data, address = self.__s.recvfrom(1024)
+<<<<<<< HEAD
                 try:
                     if data.decode() == '/clients':
                         renvoie le dico
@@ -82,6 +83,21 @@ class Chat:
                         suprime du dico
                     else:
                         pass
+=======
+                data.decode()
+                command = data[:data.index(' ')]
+                param = data[data.index(' ') + 1:].rstrip()
+                if command == '/clients':
+                    pass
+                        #renvoie le dico
+                if command == '/connect':
+                    pass
+                        #encode client dans le dico
+                if command == '/quit':
+                    pass
+                        #suprime du dico
+
+>>>>>>> 8d0244db5509d278880c848133d608f3840f5c31
             except socket.timeout:
                 pass
             except OSError:

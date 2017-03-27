@@ -90,8 +90,11 @@ class Chat:
             except OSError:
                 return
     def _clients(self):
-        
-        pass
+        clientlist= ""
+        for i in self.__clients:
+            clientlist += i + " - " + self.__clients[i]
+        return clientlist
+
 
 
 

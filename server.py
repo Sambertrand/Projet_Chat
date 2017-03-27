@@ -1,5 +1,5 @@
 #! / usr / bin / env
-#python3
+# python3
 # chat.py
 # author: Sebastien Combefis
 # version: February 15, 2016
@@ -59,14 +59,14 @@ class Chat:
                 print("Erreur lors de l'envoi du message.")
 
     def _send(self, address, param):
-            try:
-                message = param.encode()
-                totalsent = 0
-                while totalsent < len(message):
-                    sent = self.__s.sendto(message[totalsent:],address)
-                    totalsent += sent
-            except OSError:
-                print('Erreur lors de la réception du message.')
+        try:
+            message = param.encode()
+            totalsent = 0
+            while totalsent < len(message):
+                sent = self.__s.sendto(message[totalsent:], address)
+                totalsent += sent
+        except OSError:
+            print('Erreur lors de la réception du message.')
 
     def _receive(self):
         while self.__running:
@@ -78,9 +78,9 @@ class Chat:
                 if command == '/clients':
                     self._send(self.__clients[pseudo], self._clients())
                 if command == '/connect':
-                   if pseudo in self.__clients:
+                    if pseudo in self.__clients:
                         self._send(self.__clients[pseudo], "0")
-                   else:
+                    else:
                         self.__clients[pseudo] = address
                         self._send(self.__clients[pseudo], "1")
                 if command == '/quit':
@@ -89,13 +89,12 @@ class Chat:
                 pass
             except OSError:
                 return
+
     def _clients(self):
         clientlist= ""
         for i in self.__clients:
             clientlist += i + " - " + self.__clients[i]
         return clientlist
-
-
 
 
 if __name__ == '__main__':

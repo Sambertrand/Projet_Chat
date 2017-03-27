@@ -28,11 +28,6 @@ class Chat:
         self.__running = True
         threading.Thread(target=self._receive).start()
         while self.__running:
-            try:
-                client, addr = self.__s.accept()
-                data = slef._receive(client).decode
-
-        while self.__running:
             line = sys.stdin.readline().rstrip() + ' '
             # Extract the command and the param
             command = line[:line.index(' ')]
@@ -80,12 +75,13 @@ class Chat:
                 data, address = self.__s.recvfrom(1024)
                 try:
                     if data.decode == '/clients':
-                        something
+                        renvoie le dico
                     elif data.decode == '/connect':
-
+                        encode client dans le dico
+                    elif data.decode == '/quit':
+                        suprime du dico
                     else:
                         pass
-                # soit /client(envoyer un dico sous form de string) soit /connet(prendre le pseudo mettre le en clé clé dans dico) soit traite
             except socket.timeout:
                 pass
             except OSError:

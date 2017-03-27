@@ -3,10 +3,10 @@
 
 ##todo
    ###server:
-        serveur memorise la liste des ip coinnectées et leur dispo
-        connecte un pseudo à une IP
-        écouter non stop +reveption des commandes
-        supprimer de la base de donner quand il quit
+        serveur memorise la liste des ip coinnectées    //done
+        connecte un pseudo à une IP                     //done
+        écouter non stop +reveption des commandes       //done
+        supprimer de la base de donner quand il quit    //done
         
 
 

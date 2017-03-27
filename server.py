@@ -11,11 +11,11 @@ import threading
 
 class server:
     def __init__(self, host=socket.gethostname(), port=5000):
-        s = socket.socket
+        s = socket.socket(type=socket.SOCK_DGRAM)
         s.settimeout(0.5)
         s.bind((host, port))
         self.__s = s
-        print('Écoute sur {}:{}'.format(host, port))
+        print('Ecoute sur {}:{}'.format(host, port))
         self.__clients = {}
 
     def run(self):
@@ -34,7 +34,7 @@ class server:
                 try:
                     handlers[command]() if param == '' else handlers[command](param)
                 except:
-                    print("Erreur lors de l'exécution de la commande.")
+                    print("Erreur lors de l'execution de la commande.")
             else:
                 print('Command inconnue:', command)
 
@@ -52,7 +52,7 @@ class server:
                 sent = self.__s.sendto(message[totalsent:], address)
                 totalsent += sent
         except OSError:
-            print('Erreur lors de la réception du message.')
+            print('Erreur lors de la reception du message.')
 
     def _receive(self):
         while self.__running:

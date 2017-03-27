@@ -17,7 +17,7 @@
         /connect en serveur      //Done
         /quit server             //Done
         /quit p2p                //Done
-        listen server /clients
+        listen server /clients   //Done
         demande de pseudo        //Done
         
 

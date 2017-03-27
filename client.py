@@ -53,7 +53,7 @@ class Chat:
     def _quit(self):
         if self.__servadress is not None:
             try:
-                message = b'/clients' + self.__pseudo.encode()
+                message = b'/quit' + self.__pseudo.encode()
                 totalsent = 0
                 while totalsent < len(message):
                     sent = self.__s.sendto(message[totalsent:], self.__servadress)

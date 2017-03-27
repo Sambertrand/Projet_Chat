@@ -3,8 +3,7 @@
 
 ##todo
    ###server:
-        serveur memorise la liste des ip coinnectées et leur dispo --> data base
-        affiche la liste
+        serveur memorise la liste des ip coinnectées et leur dispo
         connecte un pseudo à une IP
         écouter non stop +reveption des commandes
         supprimer de la base de donner quand il quit

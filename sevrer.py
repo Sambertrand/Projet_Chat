@@ -16,7 +16,7 @@ class Chat:
         s.bind((host, port))
         self.__s = s
         print('Écoute sur {}:{}'.format(host, port))
-        self.__client = {}
+        self.__clients = {}
 
     def run(self):
         handlers = {
@@ -58,13 +58,12 @@ class Chat:
             except OSError:
                 print("Erreur lors de l'envoi du message.")
 
-    def _send(self, param):
-        if self.__address is not None:
+    def _send(self, address, param):
             try:
                 message = param.encode()
                 totalsent = 0
                 while totalsent < len(message):
-                    sent = self.__s.sendto(message[totalsent:], self.__address)
+                    sent = self.__s.sendto(message[totalsent:],address)
                     totalsent += sent
             except OSError:
                 print('Erreur lors de la réception du message.')
@@ -73,35 +72,23 @@ class Chat:
         while self.__running:
             try:
                 data, address = self.__s.recvfrom(1024)
-<<<<<<< HEAD
-                try:
-                    if data.decode() == '/clients':
-                        renvoie le dico
-                    elif data.decode() == '/connect':
-                        encode client dans le dico + message si deja pris
-                    elif data.decode() == '/quit':
-                        suprime du dico
-                    else:
-                        pass
-=======
                 data.decode()
                 command = data[:data.index(' ')]
-                param = data[data.index(' ') + 1:].rstrip()
+                pseudo = data[data.index(' ') + 1:].rstrip()
                 if command == '/clients':
-                    pass
-                        #renvoie le dico
+                    self._send(self.__clients[pseudo], self._clients())
                 if command == '/connect':
-                    pass
-                        #encode client dans le dico
+                    self.__clients[pseudo] = 
                 if command == '/quit':
                     pass
                         #suprime du dico
-
->>>>>>> 8d0244db5509d278880c848133d608f3840f5c31
             except socket.timeout:
                 pass
             except OSError:
                 return
+    def _clients(self):
+        pass
+
 
 
 if __name__ == '__main__':

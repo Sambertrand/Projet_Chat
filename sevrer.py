@@ -1,5 +1,5 @@
-! / usr / bin / env
-python3
+#! / usr / bin / env
+#python3
 # chat.py
 # author: Sébastien Combéfis
 # version: February 15, 2016
@@ -73,15 +73,19 @@ class Chat:
         while self.__running:
             try:
                 data, address = self.__s.recvfrom(1024)
-                try:
-                    if data.decode == '/clients':
-                        renvoie le dico
-                    elif data.decode == '/connect':
-                        encode client dans le dico
-                    elif data.decode == '/quit':
-                        suprime du dico
-                    else:
-                        pass
+                data.decode()
+                command = data[:data.index(' ')]
+                param = data[data.index(' ') + 1:].rstrip()
+                if command == '/clients':
+                    pass
+                        #renvoie le dico
+                if command == '/connect':
+                    pass
+                        #encode client dans le dico
+                if command == '/quit':
+                    pass
+                        #suprime du dico
+
             except socket.timeout:
                 pass
             except OSError:

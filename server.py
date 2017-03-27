@@ -9,7 +9,7 @@ import sys
 import threading
 
 
-class Chat:
+class server:
     def __init__(self, host=socket.gethostname(), port=5000):
         s = socket.socket
         s.settimeout(0.5)
@@ -21,9 +21,6 @@ class Chat:
     def run(self):
         handlers = {
             '/exit': self._exit,
-            '/quit': self._quit,
-            '/join': self._join,
-            '/send': self._send
         }
         self.__running = True
         threading.Thread(target=self._receive).start()
@@ -42,21 +39,10 @@ class Chat:
                 print('Command inconnue:', command)
 
     def _exit(self):
+        for i in self.__clients:
+            self._send(self.__clients[i], "the server is now closed /n XOXO")
         self.__running = False
-        self.__address = None
         self.__s.close()
-
-    def _quit(self):
-        self.__address = None
-
-    def _join(self, param):
-        tokens = param.split(' ')
-        if len(tokens) == 2:
-            try:
-                self.__address = (socket.gethostbyaddr(tokens[0])[0], int(tokens[1]))
-                print('Connecté à {}:{}'.format(*self.__address))
-            except OSError:
-                print("Erreur lors de l'envoi du message.")
 
     def _send(self, address, param):
         try:
@@ -99,6 +85,6 @@ class Chat:
 
 if __name__ == '__main__':
     if len(sys.argv) == 3:
-        Chat(sys.argv[1], int(sys.argv[2])).run()
+        server(sys.argv[1], int(sys.argv[2])).run()
     else:
-        Chat().run()
+        server().run()

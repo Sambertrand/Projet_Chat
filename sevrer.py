@@ -31,6 +31,7 @@ class Chat:
             try:
                 client, addr = self.__s.accept()
                 data = slef._receive(client).decode
+
         while self.__running:
             line = sys.stdin.readline().rstrip() + ' '
             # Extract the command and the param
@@ -50,15 +51,6 @@ class Chat:
         self.__address = None
         self.__s.close()
 
-    def _recieve(self, client):
-        bout = []
-        busy = True
-        while busy
-            data = client.recv(2048)
-            bout.append(data)
-            busy = data =! b''
-        return b''.join(bout)
-    
     def _quit(self):
         self.__address = None
 
@@ -86,7 +78,14 @@ class Chat:
         while self.__running:
             try:
                 data, address = self.__s.recvfrom(1024)
-                print(data.decode())
+                try:
+                    if data.decode == '/clients':
+                        something
+                    elif data.decode == '/connect':
+
+                    else:
+                        pass
+                # soit /client(envoyer un dico sous form de string) soit /connet(prendre le pseudo mettre le en clé clé dans dico) soit traite
             except socket.timeout:
                 pass
             except OSError:

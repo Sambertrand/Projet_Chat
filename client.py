@@ -13,7 +13,7 @@ class Chat:
     def __init__(self, pseudo, host=socket.gethostname(), port=5000):
         self.__pseudo = pseudo
         self.__avlbl = None
-        self.__updte = False
+        self.__update = False
         s = socket.socket(type=socket.SOCK_DGRAM)
         s.settimeout(0.5)
         s.bind((host, port))
@@ -120,12 +120,12 @@ class Chat:
                     data, address = self.__s.recvfrom(1024)
                     self.__avlbl = json.loads(data.decode())
                     print(self.__avlbl)
-                    self.__updte = True
+                    self.__update = True
                 except socket.timeout:
                     pass
                 except OSError:
                     return
-            self.__updte = False
+            self.__update = False
 
         else:
             print('Connectez vous a un serveur')
@@ -150,8 +150,10 @@ class Chat:
                             data, address = self.__s.recvfrom(1024)
                             if data == b'0':
                                 self.__pseudo = input('Votre pseudo est déjà pris, veuillez entrer un nouveau: ')
+                            self.__update = True
                         except socket.timeout:
                             pass
+                    self.__update = False
                 except OSError:
                     print("Erreur lors de la connection au serveur.")
         print('Connecte au serveur {}:{}'.format(*self.__servadress))

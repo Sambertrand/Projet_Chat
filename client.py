@@ -76,6 +76,8 @@ class Chat:
                 print('Connecte a {}:{}'.format(*self.__address))
             except OSError:
                 print("Erreur lors de l'envoi du message.")
+        else:
+            print('Veuillez préciser un port.')
 
     def _send(self, param):
         if self.__address is not None:
@@ -110,6 +112,7 @@ class Chat:
                     totalsent += sent
             except OSError:
                 print('Erreur lors de la reception du message.')
+
         else:
             print('Connectez vous a un serveur')
 
@@ -120,8 +123,12 @@ class Chat:
             try:
                 self.__servadress = (socket.gethostbyaddr(tokens[0])[0], int(tokens[1]))
                 print('Connecte au serveur {}:{}'.format(*self.__servadress))
-                # envoyer qqch au serveur, à voir avec Sam       ##M
-                # chopper l'ip?                                  ##M
+                # envoye le pseudo au serveur
+                message = b'/connect' + self.__pseudo.encode()
+                totalsent = 0
+                while totalsent < len(message):
+                    sent = self.__s.sendto(message[totalsent:], self.__servadress)
+                    totalsent += sent
             except OSError:
                 print("Erreur lors de la connection au serveur.")
 

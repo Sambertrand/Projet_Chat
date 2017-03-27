@@ -74,11 +74,11 @@ class Chat:
             try:
                 data, address = self.__s.recvfrom(1024)
                 try:
-                    if data.decode == '/clients':
+                    if data.decode() == '/clients':
                         renvoie le dico
-                    elif data.decode == '/connect':
-                        encode client dans le dico
-                    elif data.decode == '/quit':
+                    elif data.decode() == '/connect':
+                        encode client dans le dico + message si deja pris
+                    elif data.decode() == '/quit':
                         suprime du dico
                     else:
                         pass

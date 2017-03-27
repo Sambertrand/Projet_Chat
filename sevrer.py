@@ -26,8 +26,11 @@ class Chat:
             '/send': self._send
         }
         self.__running = True
-        self.__address = None
         threading.Thread(target=self._receive).start()
+        while self.__running:
+            try:
+                client, addr = self.__s.accept()
+                data = slef._receive(client).decode
         while self.__running:
             line = sys.stdin.readline().rstrip() + ' '
             # Extract the command and the param
@@ -47,6 +50,15 @@ class Chat:
         self.__address = None
         self.__s.close()
 
+    def _recieve(self, client):
+        bout = []
+        busy = True
+        while busy
+            data = client.recv(2048)
+            bout.append(data)
+            busy = data =! b''
+        return b''.join(bout)
+    
     def _quit(self):
         self.__address = None
 

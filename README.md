@@ -19,7 +19,10 @@
         /quit p2p                //Done
         listen server /clients   //Done
         demande de pseudo        //Done
-        
 
-    Trouver le server --> readme
+
+   ###README:
+         expliquer le protocole de communiation
+         expliquer comment notre code marche
+         expliquer comment trouver le server
 

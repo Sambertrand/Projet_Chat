@@ -79,7 +79,7 @@ class server:
     def _clients(self):
         clientlist= ""
         for i in self.__clients:
-            clientlist += i + " - " + self.__clients[i]
+            clientlist += i + " - " + self.__clients[i] + "\n"
         return clientlist
 
 

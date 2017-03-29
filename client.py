@@ -79,6 +79,10 @@ class Chat:
                 print('Connecte a {}:{}'.format(*self.__address))
             except OSError:
                 print("Erreur lors de l'envoi du message.")
+        elif len(tokens) == 1:
+            pseudo = tokens[0]
+            if pseudo in self.__avlbl:
+                self.__adress = (socket.gethostbyaddr(self.__avlbl[pseudo][0])[0], int(self.__avlbl[pseudo][1]))
         else:
             print('Veuillez préciser un port.')
 

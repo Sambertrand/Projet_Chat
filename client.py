@@ -50,10 +50,10 @@ class Chat:
                 print('Command inconnue:', command)
 
     def _exit(self):
-        print('Cy@')
         self._quit()
         self.__running = False
         self.__s.close()
+        print('Cy@')
 
     def _quit(self):
         if self.__servaddress is not None:

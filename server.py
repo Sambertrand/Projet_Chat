@@ -10,7 +10,7 @@ import threading
 
 
 class server:
-    def __init__(self, host=socket.gethostname(), port=5000):
+    def __init__(self, host=socket.gethostname(), port=4200):
         s = socket.socket(type=socket.SOCK_DGRAM)
         s.settimeout(0.5)
         s.bind((host, port))

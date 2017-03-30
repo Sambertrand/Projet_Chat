@@ -83,8 +83,7 @@ class Chat:
             pseudo = tokens[0]
             if pseudo in self.__avlbl:
                 self.__adress = (socket.gethostbyaddr(self.__avlbl[pseudo][0])[0], int(self.__avlbl[pseudo][1]))
-        else:
-            print('Veuillez preciser un port.')
+                print('Connecte a {} sur {}:{}'.format(pseudo, *self.__address))
 
     def _send(self, param):
         if self.__address is not None:

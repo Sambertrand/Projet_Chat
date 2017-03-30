@@ -26,7 +26,8 @@ class Chat:
             '/quit': self._quit,
             '/join': self._join,
             '/send': self._send,
-            '/clients': self._clients
+            '/clients': self._clients,
+            '/connect': self._connect
         }
         self.__running = True
         self.__address = None

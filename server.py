@@ -40,7 +40,7 @@ class server:
 
     def _exit(self):
         for i in self.__clients:
-            self._send(self.__clients[i], "the server is now closed /n XOXO")
+            self._send(self.__clients[i], "the server is now closed \n XOXO")
         self.__running = False
         self.__s.close()
 

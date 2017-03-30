@@ -47,7 +47,7 @@ class Chat:
                 print('Command inconnue:', command)
 
     def _exit(self):
-        print('Cya')
+        print('Cy@')
         self.__running = False
         self.__servadress = None
         self.__address = None

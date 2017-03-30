@@ -40,18 +40,17 @@ class Chat:
             param = line[line.index(' ') + 1:].rstrip()
             # Call the command handler
             if command in handlers:
-                #try:
-                    handlers[command]() if param == '' else handlers[command](param)
-                #except:
-                    #print("Erreur lors de l'execution de la commande.")
+                # try:
+                handlers[command]() if param == '' else handlers[command](param)
+                # except:
+                # print("Erreur lors de l'execution de la commande.")
             else:
                 print('Command inconnue:', command)
 
     def _exit(self):
         print('Cy@')
+        self._quit()
         self.__running = False
-        self.__servaddress = None
-        self.__address = None
         self.__s.close()
 
     def _quit(self):
@@ -62,12 +61,12 @@ class Chat:
                 while totalsent < len(message):
                     sent = self.__s.sendto(message[totalsent:], self.__servaddress)
                     totalsent += sent
-                print('Deconnecte du serveur {}:{}'.format(*self.__address))
+                print('Deconnecte du serveur {}:{}'.format(*self.__servaddress))
                 self.__servaddress = None
             except OSError:
                 print('Erreur lors de deconnection au serveur.')
 
-        if self.__address is not None:
+        if self.__address != None:
             print('Deconnecte de {}:{}'.format(*self.__address))
             self.__address = None
 
@@ -123,10 +122,8 @@ class Chat:
             while self.__update is False:
                 try:
                     data, address = self.__s.recvfrom(1024)
-                    print(data.decode())
-                    print(type(data.decode()))
                     self.__avlbl = ast.literal_eval(data.decode())
-                    print(self.__avlbl)
+                    self._printdic(self.__avlbl)
                     self.__update = True
                 except socket.timeout:
                     pass
@@ -169,9 +166,12 @@ class Chat:
                 print('veuillez entrer une adresse valide')
                 break
 
+    def _printdic(self, dico):
+        result = ''
+        for e in dico:
+            result += e + ": à l'adresse " + dico[e][0] + ' et au port ' + str(dico[e][1]) + '\n'
+        print(result)
 
-    def _help(self):
-        pass
 
 if __name__ == '__main__':
     pseudo = str(input('Votre pseudo: '))

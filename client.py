@@ -57,7 +57,7 @@ class Chat:
     def _quit(self):
         if self.__servadress is not None:
             try:
-                message = b'/quit' + self.__pseudo.encode()
+                message = b'/quit ' + self.__pseudo.encode()
                 totalsent = 0
                 while totalsent < len(message):
                     sent = self.__s.sendto(message[totalsent:], self.__servadress)
@@ -112,7 +112,7 @@ class Chat:
     def _clients(self):
         if self.__servadress is not None:
             try:
-                message = b'/clients' + self.__pseudo.encode()
+                message = b'/clients ' + self.__pseudo.encode()
                 totalsent = 0
                 while totalsent < len(message):
                     sent = self.__s.sendto(message[totalsent:], self.__servadress)
@@ -144,7 +144,7 @@ class Chat:
                 try:
                     self.__servadress = (socket.gethostbyaddr(tokens[0])[0], int(tokens[1]))
                     # envoye le pseudo au serveur
-                    message = b'/connect' + self.__pseudo.encode()
+                    message = b'/connect ' + self.__pseudo.encode()
                     totalsent = 0
                     while totalsent < len(message):
                         sent = self.__s.sendto(message[totalsent:], self.__servadress)

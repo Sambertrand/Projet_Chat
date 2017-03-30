@@ -62,13 +62,13 @@ class server:
                 command = data[:data.index(' ')]
                 pseudo = data[data.index(' ') + 1:].rstrip()
                 if command == '/clients':
-                    self._send(self.__clients[pseudo], self._clients())
+                    self._send(address, self._clients())
                 if command == '/connect':
                     if pseudo in self.__clients:
-                        self._send(self.__clients[pseudo], "0")
+                        self._send(address, "0")
                     else:
-                        self.__clients[pseudo] = address
-                        self._send(self.__clients[pseudo], "1")
+                        self.__clients[pseudo] = (address[0], 5000)
+                        self._send(address, "1")
                 if command == '/quit':
                     self.__clients.pop(pseudo)
             except socket.timeout:

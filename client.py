@@ -102,14 +102,15 @@ class Chat:
 
     def _receive(self):
         while self.__running:
-            if self.__address is not None:
-                try:
-                    data, address = self.__s.recvfrom(1024)
+            try:
+                data, address = self.__s.recvfrom(1024)
+                if address[1] != 4200:
                     print(data.decode())
-                except socket.timeout:
-                    pass
-                except OSError:
-                    return
+            except socket.timeout:
+                pass
+            except OSError:
+                return
+
 
     def _clients(self):
         if self.__servaddress is not None:

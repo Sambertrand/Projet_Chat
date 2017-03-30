@@ -10,7 +10,7 @@ import json
 
 
 class Chat:
-    def __init__(self, pseudo, host=socket.gethostname(), port=5000):
+    def __init__(self, pseudo, host=socket.gethostname(), port=4269):
         self.__pseudo = pseudo
         self.__avlbl = None
         self.__update = False

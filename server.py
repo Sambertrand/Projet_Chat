@@ -67,7 +67,7 @@ class server:
                     if pseudo in self.__clients:
                         self._send(address, "0")
                     else:
-                        self.__clients[pseudo] = (address[0], 5000)
+                        self.__clients[pseudo] = (address[0], 4269)
                         self._send(address, "1")
                 if command == '/quit':
                     self.__clients.pop(pseudo)

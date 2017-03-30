@@ -60,11 +60,11 @@ class server:
                 data, address = self.__s.recvfrom(1024)
                 line = data.decode()
                 # Extract the command and the param
-                print(line)
+                print('Reçu:', line)
                 command = line[:line.index(' ')]
                 pseudo = line[line.index(' ') + 1:].rstrip()
                 if command == '/clients':
-                    self._send(address, self._clients())
+                    self._send(address, str(self.__clients))
                 if command == '/connect':
                     if pseudo in self.__clients:
                         self._send(address, "0")
@@ -75,16 +75,11 @@ class server:
                         print('{} connecté'.format(pseudo))
                 if command == '/quit':
                     self.__clients.pop(pseudo)
+                    print('{} déconnecté'.format(pseudo))
             except socket.timeout:
                 pass
             except OSError:
                 return
-
-    def _clients(self):
-        clientlist= ""
-        for i in self.__clients:
-            clientlist += i + " - " + self.__clients[i] + "\n"
-        return clientlist
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # chat.py
-# author: Sebastien Combefis
+# author: Sebastien Combefis et Binome 2
 # version: February 15, 2016
 
 import socket
@@ -10,8 +10,8 @@ import ast
 
 
 class Chat:
-    def __init__(self, pseudo, host=socket.gethostname(), port=4269):
-        self.__pseudo = pseudo
+    def __init__(self, host=socket.gethostname(), port=4269):
+        self.__pseudo = str(input('Votre pseudo: '))
         self.__avlbl = None
         self.__update = False
         self.__running = True
@@ -21,7 +21,8 @@ class Chat:
         s.settimeout(0.5)
         s.bind((host, port))
         self.__s = s
-        print('Ecoute sur {}:{} en tant que {}'.format(host, port, pseudo))
+        print('Ecoute sur {}:{} en tant que {}'.format(host, port, self.__pseudo))
+        print('Tapez /help pour avoir de l\'aide')
 
     def run(self):
         handlers = {
@@ -30,7 +31,8 @@ class Chat:
             '/join': self._join,
             '/send': self._send,
             '/clients': self._clients,
-            '/connect': self._connect
+            '/connect': self._connect,
+            '/help': self._help
         }
         threading.Thread(target=self._receive).start()
         while self.__running:
@@ -40,10 +42,10 @@ class Chat:
             param = line[line.index(' ') + 1:].rstrip()
             # Call the command handler
             if command in handlers:
-                # try:
-                handlers[command]() if param == '' else handlers[command](param)
-                # except:
-                # print("Erreur lors de l'execution de la commande.")
+                try:
+                    handlers[command]() if param == '' else handlers[command](param)
+                except:
+                    print("Erreur lors de l'execution de la commande.")
             else:
                 print('Command inconnue:', command)
 
@@ -88,7 +90,7 @@ class Chat:
     def _send(self, param):
         if self.__address is not None:
             try:
-                message = b'<' + self.__pseudo.encode() + b'>' + param.encode()
+                message = b'<' + self.__pseudo.encode() + b'>: ' + param.encode()
                 totalsent = 0
                 while totalsent < len(message):
                     sent = self.__s.sendto(message[totalsent:], self.__address)
@@ -162,6 +164,7 @@ class Chat:
 
                 except OSError:
                     print("Erreur lors de la connection au serveur.")
+                    break
             else:
                 print('veuillez entrer une adresse valide')
                 break
@@ -172,10 +175,15 @@ class Chat:
             result += e + ": à l'adresse " + dico[e][0] + ' et au port ' + str(dico[e][1]) + '\n'
         print(result)
 
+    def _help(self):
+        print('/send: Envoye un message \n /connect: Connection à un message \n'
+              '/join: connection à un autre client (/join + pseudo ou /join + ip + port)'
+              ' \n /clients: Reçois la liste des clients \n /quit: Déconnectoin d\'un autre client ou d\'un serveur \n '
+              '/exit: Quitter le programme \n ')
+
 
 if __name__ == '__main__':
-    pseudo = str(input('Votre pseudo: '))
     if len(sys.argv) == 3:
-        Chat(pseudo, sys.argv[1], int(sys.argv[2])).run()
+        Chat(sys.argv[1], int(sys.argv[2])).run()
     else:
-        Chat(pseudo).run()
+        Chat().run()

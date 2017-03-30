@@ -257,6 +257,6 @@ class Server:
 
 if __name__ == '__main__':
     if sys.argv[1] == 'server':
-        Server.run()
+        Server.run().run()
     else:
         Client().run()

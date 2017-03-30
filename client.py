@@ -66,7 +66,7 @@ class Chat:
                 print('Deconnecte du serveur {}:{}'.format(*self.__servaddress))
                 self.__servaddress = None
             except OSError:
-                print('Erreur lors de deconnection au serveur.')
+                print('Erreur lors de deconnexion au serveur.')
 
         if self.__address != None:
             print('Deconnecte de {}:{}'.format(*self.__address))
@@ -164,7 +164,7 @@ class Chat:
                     self.__update = False
 
                 except OSError:
-                    print("Erreur lors de la connection au serveur.")
+                    print("Erreur lors de la connexion au serveur.")
                     break
             else:
                 print('veuillez entrer une adresse valide')
@@ -177,9 +177,9 @@ class Chat:
         print(result)
 
     def _help(self):
-        print(' /send: Envoye un message \n /connect: Connection à un message \n '
-              '/join: connection à un autre client (/join + "-p" + pseudo ou /join + "-ip" + ip + port)'
-              ' \n /clients: Reçois la liste des clients \n /quit: Déconnectoin d\'un autre client ou d\'un serveur \n '
+        print(' /send: Envoye un message \n /connect: Connexion à un serveur \n '
+              '/join: Connexion à un autre client (/join + "-p" + pseudo ou /join + "-ip" + ip + port)'
+              ' \n /clients: Reçois la liste des clients \n /quit: Déconnexion d\'un autre client ou d\'un serveur \n '
               '/exit: Quitter le programme \n ')
 
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # chat.py
 # author: Sebastien Combefis et Binome 2
-# version: February 15, 2016
+# version: February 30, 2017
 
 import socket
 import sys

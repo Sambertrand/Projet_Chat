@@ -75,14 +75,14 @@ class Chat:
     def _join(self, param):
         self._quit()
         tokens = param.split(' ')
-        if len(tokens) == 2:
+        if len(tokens) == 3 and tokens[0] == '-ip':
             try:
-                self.__address = (socket.gethostbyaddr(tokens[0])[0], int(tokens[1]))
+                self.__address = (socket.gethostbyaddr(tokens[1])[0], int(tokens[2]))
                 print('Connecte a {}:{}'.format(*self.__address))
             except OSError:
                 print("Erreur lors de l'envoi du message.")
-        elif len(tokens) == 1:
-            pseudo = tokens[0]
+        elif tokens[0] == '-p':
+            pseudo = tokens[1]
             if pseudo in self.__avlbl:
                 self.__address = (socket.gethostbyaddr(self.__avlbl[pseudo][0])[0], int(self.__avlbl[pseudo][1]))
                 print('Connecte a {} sur {}:{}'.format(pseudo, *self.__address))
@@ -176,8 +176,8 @@ class Chat:
         print(result)
 
     def _help(self):
-        print('/send: Envoye un message \n /connect: Connection à un message \n'
-              '/join: connection à un autre client (/join + pseudo ou /join + ip + port)'
+        print(' /send: Envoye un message \n /connect: Connection à un message \n '
+              '/join: connection à un autre client (/join + "-p" + pseudo ou /join + "-ip" + ip + port)'
               ' \n /clients: Reçois la liste des clients \n /quit: Déconnectoin d\'un autre client ou d\'un serveur \n '
               '/exit: Quitter le programme \n ')
 

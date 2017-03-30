@@ -64,7 +64,7 @@ class Chat:
                 print('Deconnecte du serveur {}:{}'.format(*self.__address))
                 self.__servadress = None
             except OSError:
-                print('Erreur lors de déconnection au serveur.')
+                print('Erreur lors de deconnection au serveur.')
 
         if self.__address is not None:
             print('Deconnecte de {}:{}'.format(*self.__address))
@@ -84,7 +84,7 @@ class Chat:
             if pseudo in self.__avlbl:
                 self.__adress = (socket.gethostbyaddr(self.__avlbl[pseudo][0])[0], int(self.__avlbl[pseudo][1]))
         else:
-            print('Veuillez préciser un port.')
+            print('Veuillez preciser un port.')
 
     def _send(self, param):
         if self.__address is not None:
@@ -153,7 +153,7 @@ class Chat:
                         try:
                             data, address = self.__s.recvfrom(1024)
                             if data == b'0':
-                                self.__pseudo = input('Votre pseudo est déjà pris, veuillez entrer un nouveau: ')
+                                self.__pseudo = str(input('Votre pseudo est deja pris, veuillez entrer un nouveau: '))
                             self.__update = True
                         except socket.timeout:
                             pass
@@ -166,7 +166,7 @@ class Chat:
         pass
 
 if __name__ == '__main__':
-    pseudo = input('Votre pseudo: ')
+    pseudo = str(input('Votre pseudo: '))
     if len(sys.argv) == 3:
         Chat(pseudo, sys.argv[1], int(sys.argv[2])).run()
     else:

@@ -16,5 +16,11 @@ Pour lancer le programme, tapez soit 'server', soit 'client' en lançant le prog
 * Pour la connexion client - client (UDP), une fois avoir reçu du serveur les adresses ip des autres personnes
  connectées au serveur, il suffit de se connecter grâce au pseudo donné à la personne souhaitée.  
 L'application en mode client peut fonctionner sans serveur, pour ceci, il suffit de se connecter via l'ip et le port
-établi.  
+établi.
 
+*Des commandes racourcies sont disponible.
+
+* Amélioration possible:
+Se connecter a plusieurs clients
+Supprimer la commande apres l'avoir écrite (afficher le message envoyé)
+Créer un 'mode' send qui permet d'envoyer sans taper la commande

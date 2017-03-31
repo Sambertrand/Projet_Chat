@@ -32,7 +32,13 @@ class Client:
             '/send': self._send,
             '/clients': self._clients,
             '/connect': self._connect,
-            '/help': self._help
+            '/help': self._help,
+            '/e': self._exit,
+            '/s': self._send,
+            '/q': self._quit,
+            '/c': self._connect,
+            '/j': self._join,
+            '/l': self._clients
         }
         threading.Thread(target=self._receive).start()
         while self.__running:

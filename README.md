@@ -21,6 +21,6 @@ L'application en mode client peut fonctionner sans serveur, pour ceci, il suffit
 * Des commandes racourcies sont disponible.
 
 * Amélioration possible:  
--Se connecter a plusieurs clients  
+-Se connecter à plusieurs clients  
 -Supprimer la commande apres l'avoir écrite (afficher le message envoyé)  
--Créer un 'mode' send qui permet d'envoyer sans taper la commande  
+-Créer un 'mode send' qui permet d'envoyer sans taper la commande  

@@ -18,9 +18,9 @@ Pour lancer le programme, tapez soit 'server', soit 'client' en lançant le prog
 L'application en mode client peut fonctionner sans serveur, pour ceci, il suffit de se connecter via l'ip et le port
 établi.
 
-*Des commandes racourcies sont disponible.
+* Des commandes racourcies sont disponible.
 
-* Amélioration possible:
-Se connecter a plusieurs clients
-Supprimer la commande apres l'avoir écrite (afficher le message envoyé)
-Créer un 'mode' send qui permet d'envoyer sans taper la commande
+* Amélioration possible:  
+-Se connecter a plusieurs clients  
+-Supprimer la commande apres l'avoir écrite (afficher le message envoyé)  
+-Créer un 'mode' send qui permet d'envoyer sans taper la commande  
